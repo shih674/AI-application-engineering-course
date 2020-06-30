@@ -41,7 +41,7 @@ class MyFrame1(wx.Frame):
 		self.function2 = wx.MenuItem(self.bar_file, wx.ID_ANY, u"開啟舊檔", wx.EmptyString, wx.ITEM_NORMAL)
 		self.bar_file.Append(self.function2)
 
-		self.function3 = wx.MenuItem(self.bar_file, wx.ID_ANY, u"儲存程式", wx.EmptyString, wx.ITEM_NORMAL)
+		self.function3 = wx.MenuItem(self.bar_file, wx.ID_ANY, u"儲存檔案", wx.EmptyString, wx.ITEM_NORMAL)
 		self.bar_file.Append(self.function3)
 
 		self.function4 = wx.MenuItem(self.bar_file, wx.ID_ANY, u"結束程式", wx.EmptyString, wx.ITEM_NORMAL)
@@ -73,9 +73,11 @@ class MyFrame1(wx.Frame):
 		self.Bind(wx.EVT_MENU, self.load_file, id=self.function2.GetId())
 		self.Bind(wx.EVT_MENU, self.save_file, id=self.function3.GetId())
 		self.Bind(wx.EVT_MENU, self.close_window, id=self.function4.GetId())
+		self.Bind(wx.EVT_MENU, self.auther_intro, id=self.function2_1.GetId())
 
 		# 自建
 		self.currentDirectory = os.getcwd()
+		self.frame1 = MyDialog1(parent=None)
 
 	def __del__(self):
 		pass
@@ -126,6 +128,42 @@ class MyFrame1(wx.Frame):
 
 	def close_window(self, event):
 		self.Close(True)
+
+	def auther_intro( self, event):
+         self.frame1.Show()
+
+class MyDialog1 ( wx.Dialog ):
+
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"關於作者", pos = wx.DefaultPosition, size = wx.Size( 246,122 ), style = wx.DEFAULT_DIALOG_STYLE )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+		bSizer3 = wx.BoxSizer( wx.VERTICAL )
+
+		self.label_auther = wx.StaticText( self, wx.ID_ANY, u"作者: 王大明", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_auther.Wrap( -1 )
+
+		bSizer3.Add( self.label_auther, 0, wx.ALL, 5 )
+
+		self.label_email = wx.StaticText( self, wx.ID_ANY, u"信箱: Da-Ming@gmail.com", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_email.Wrap( -1 )
+
+		bSizer3.Add( self.label_email, 0, wx.ALL, 5 )
+
+		self.label_website = wx.StaticText( self, wx.ID_ANY, u"網站: www.DaMingWang.com", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_website.Wrap( -1 )
+
+		bSizer3.Add( self.label_website, 0, wx.ALL, 5 )
+
+
+		self.SetSizer( bSizer3 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+	def __del__( self ):
+		pass
 
 
 if __name__ == '__main__':
